@@ -3,9 +3,12 @@ LD R6,START
 LD R1,INKB
 LD R2,ADDRES
 STR R2,R1,#0
+;save the address of the begining of our interrupt service into  the invt address
 LD R1,KBSR
+;giving the interrupt privilege
 LD R3,INEN
 STR R3,R1,#0
+;two pattern to output. 
 p0		LDI	R1,Flag
 		BRz		p1
 		BRnzp	p2

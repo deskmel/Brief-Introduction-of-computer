@@ -1,30 +1,37 @@
 .ORIG x2000
+;save the register into the memory
 STI		R0,SAVE0
 STI		R1,SAVE1
 STI		R2,SAVE2
 STI		R3,SAVE3
 STI 	R4,SAVE4
-LDI		R1,KBDR
+;get  the input from the keyboard
+LDI		R1,KBDR		
 LD 		R0,MINUSNL
+;get the <enter>
 READ	LDI		R4,KBSR
 		BRz		READ
 		LDI 	R4,KBDR
 		ADD		R4, R4,R0
 		BRnp	READ
 		AND		R2,R2,#0
+;A counter for the loop and output the character
 ADD		R2,R2,#-10
 PRI		LDI	R3,DSR
 		BRz	PRI
 		STI	R1,DDR
 		ADD R2,R2,#1
 		BRn 	PRI
+;output the new line
 LD  	R1,LINEFEED
 PRI1	LDI	R3,DSR
 		BRz	PRI1
 		STI	R1,DDR
+;change the flag for the next operation
 LD 		R2,FLAG
 LDR		R1,R2,#0
 NOT		R1,R1
+
 STR		R1,R2,#0
 LDI 	R0,SAVE0
 LDI		R1,SAVE1
